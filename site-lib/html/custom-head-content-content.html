@@ -1,0 +1,14 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("a").forEach(link => {
+    link.target = "_blank";
+  });
+});
+</script>
+
+<style>
+a[target="_blank"]::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+</style>
