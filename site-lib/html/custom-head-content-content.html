@@ -1,9 +1,23 @@
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("a").forEach(link => {
-    link.target = "_blank";
-  });
-});
+(function () {
+  function isExternal(a) {
+    try {
+      const url = new URL(a.href, window.location.href);
+      return url.origin !== window.location.origin;
+    } catch (e) { return false; }
+  }
+
+  document.addEventListener("click", function (e) {
+    const a = e.target.closest && e.target.closest("a");
+    if (!a || !a.href) return;
+
+    if (isExternal(a)) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(a.href, "_blank", "noopener,noreferrer");
+    }
+  }, true); // capture phase
+})();
 </script>
 
 <style>
